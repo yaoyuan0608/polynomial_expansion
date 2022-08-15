@@ -1,0 +1,31 @@
+Model: "model"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ input_1 (InputLayer)           [(None, None, 35)]   0           []                               
+                                                                                                  
+ bidirectional (Bidirectional)  [(None, 128),        51200       ['input_1[0][0]']                
+                                 (None, 64),                                                      
+                                 (None, 64),                                                      
+                                 (None, 64),                                                      
+                                 (None, 64)]                                                      
+                                                                                                  
+ input_2 (InputLayer)           [(None, None, 35)]   0           []                               
+                                                                                                  
+ concatenate (Concatenate)      (None, 128)          0           ['bidirectional[0][1]',          
+                                                                  'bidirectional[0][3]']          
+                                                                                                  
+ concatenate_1 (Concatenate)    (None, 128)          0           ['bidirectional[0][2]',          
+                                                                  'bidirectional[0][4]']          
+                                                                                                  
+ lstm_1 (LSTM)                  [(None, None, 128),  83968       ['input_2[0][0]',                
+                                 (None, 128),                     'concatenate[0][0]',            
+                                 (None, 128)]                     'concatenate_1[0][0]']          
+                                                                                                  
+ dense (Dense)                  (None, None, 35)     4515        ['lstm_1[0][0]']                 
+                                                                                                  
+==================================================================================================
+Total params: 139,683
+Trainable params: 139,683
+Non-trainable params: 0
+__________________________________________________________________________________________________
